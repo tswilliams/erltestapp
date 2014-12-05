@@ -37,4 +37,11 @@ print(0, _) ->
     void;
 print(NrTimes, Delay) ->
     timer:sleep( timer:seconds(Delay) ),
-    lager:info("Testing ~p ...~n", [NrTimes]).
+    lager:debug("Testing debug ~p ...~n", [NrTimes]),
+    lager:info("Testing info ~p ...~n", [NrTimes]),
+    lager:notice("Testing notice ~p ...~n", [NrTimes]),
+    lager:warning("Testing warning ~p ...~n", [NrTimes]),
+    lager:error("Testing error ~p ...~n", [NrTimes]),
+    lager:critical("Testing critical ~p ...~n", [NrTimes]),
+    lager:alert("Testing alert ~p ...~n", [NrTimes]),
+    lager:emergency("Testing emergency ~p ...~n", [NrTimes]).
