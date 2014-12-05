@@ -1,0 +1,42 @@
+
+1) Basic app structure
+
+./rebar create-app appid=erltestapp
+
+   - then can ./rebar compile
+              ./rebar clean
+              (ad infinitum)
+
+
+-----------------------------------------------------------
+
+2) Moving onto node ...
+
+mkdir rel
+cd rel
+../rebar create-node nodeid=erltestapp
+     * Add {lib_dir, ".."} to app line halfway down reltool.config
+cd ../
+     * Add {sub_dirs, ["rel"]} to ./rebar.config (in root dir)
+./rebar compile generate
+
+     - then you can start/stop the node, and attach to it
+
+
+-----------------------------------------------------------
+
+3) Adding a dependency (lager) ...
+
+   * Add to deps tuple in the rebar.config (only need direct dependency, others will be automatically included)
+   * Add parse_transform compiler flag to rebar.config
+
+{erl_opts, [{parse_transform, lager_transform}]}.
+
+   * Add all dependencies to src/*.app.src - i.e. compiler, syntax_tools, goldrush, lager 
+   * Add app dependeneies to sys tuple in reltool.config 
+
+       {app, goldrush, [{mod_cond, app}, {incl_cond, include}, {lib_dir, "../deps/goldrush"}]},
+       {app, lager, [{mod_cond, app}, {incl_cond, include}, {lib_dir, "../deps/lager"}]},
+
+     N.B: I don't know whether the goldrush line is needed here
+
