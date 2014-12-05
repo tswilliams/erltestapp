@@ -10,7 +10,7 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
-    application:start(lager),
+%    application:start(lager),
     erltestapp_sup:start_link().
 
 stop(_State) ->
